@@ -1,7 +1,19 @@
-// background.js
+
 chrome.action.onClicked.addListener((tab) => {
-  chrome.scripting.executeScript({
-    target: { tabId: tab.id },
-    files: ["content-script.js"],
-  });
+  const filter = {
+    urls: ["<all_urls>"], // You can narrow this down to specific file types or domains
+    tabId: tab.id
+  };
+
+  chrome.webRequest.onBeforeRequest.addListener(
+    (details) => {
+      console.log("File request detected:", details);
+    },
+    filter,
+    []
+  );
+
+  console.log(`Monitoring requests for tab: ${tab.id}`);
 });
+
+
