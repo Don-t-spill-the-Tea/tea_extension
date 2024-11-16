@@ -1,11 +1,9 @@
 console.log("called")
 
 function logURL(requestDetails) {
-  console.log(`Loading: ${requestDetails.url}`);
+  console.log(`Loading ${requestDetails.url}`)
 }
 
 browser.webRequest.onBeforeRequest.addListener(logURL, {
-  urls: ["<all_urls>"],
-
-});
-
+  url: ["<all_urls>"]
+})
