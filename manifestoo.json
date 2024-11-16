@@ -1,0 +1,23 @@
+{
+"manifest_version": 3,
+  "name": "Don't spill the Tea",
+  "version": "0.0.1",
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "ruleset_first.json"
+      }
+    ]
+  },
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": "tea.jpg"
+  },
+  "permissions": ["declarativeNetRequest", "declarativeNetRequestFeedback"],
+  "host_permissions": ["*://*/*"],
+  "background": {
+    "service_worker": "popup.js"
+  }
+}
