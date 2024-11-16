@@ -1,4 +1,3 @@
-// Initialize the script
 console.log("Enhanced image detection script initializing...");
 
 // Create a MutationObserver to watch for DOM changes
@@ -42,11 +41,20 @@ function handleImage(img) {
     fetch(img.src)
       .then(response => {
         if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-        return response.blob();
+        return response.blob(); // Get the image as a Blob
       })
       .then(blob => {
         console.log(`Successfully downloaded image blob:`, blob);
-        // Your additional image processing logic here
+
+        // Create a temporary link to download the image
+        const downloadLink = document.createElement('a');
+        const url = URL.createObjectURL(blob); // Create a blob URL
+        downloadLink.href = url; // Set the blob URL as the href
+        downloadLink.download = img.src.split('/').pop(); // Set the file name based on the image URL or any custom name
+        downloadLink.click(); // Trigger the download
+
+        // Clean up by revoking the object URL
+        URL.revokeObjectURL(url);
       })
       .catch(error => {
         console.error(`Error processing image ${img.src}:`, error);
@@ -104,3 +112,4 @@ if (document.readyState === "loading") {
 } else {
   initialize();
 }
+
